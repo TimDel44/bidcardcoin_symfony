@@ -6,11 +6,12 @@ use App\Repository\PersonneRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=PersonneRepository::class)
  */
-class Personne
+class Personne implements UserInterface
 {
     /**
      * @ORM\Id
@@ -32,7 +33,7 @@ class Personne
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $mail;
+    private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -42,7 +43,7 @@ class Personne
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $motDePasse;
+    private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -63,6 +64,37 @@ class Personne
      * @ORM\OneToMany(targetEntity=Vendeur::class, mappedBy="idPersonne")
      */
     private $vendeurs;
+
+    /**
+     * @ORM\Column(type="string", length=25, unique=true)
+     */
+    private $username;
+
+    /**
+     * @ORM\Column(name="is_active", type="boolean")
+     */
+    private $isActive;
+
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    public function getSalt()
+    {
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+    }
 
     public function __construct()
     {
@@ -100,12 +132,12 @@ class Personne
 
     public function getMail(): ?string
     {
-        return $this->mail;
+        return $this->email;
     }
 
     public function setMail(string $mail): self
     {
-        $this->mail = $mail;
+        $this->email = $mail;
 
         return $this;
     }
@@ -122,14 +154,14 @@ class Personne
         return $this;
     }
 
-    public function getMotDePasse(): ?string
+    public function getPassword()
     {
-        return $this->motDePasse;
+        return $this->password;
     }
 
     public function setMotDePasse(string $motDePasse): self
     {
-        $this->motDePasse = $motDePasse;
+        $this->password = $motDePasse;
 
         return $this;
     }
