@@ -75,6 +75,13 @@ class Personne implements UserInterface
      */
     private $isActive;
 
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
     public function getUsername()
     {
         return $this->username;
@@ -130,14 +137,14 @@ class Personne implements UserInterface
         return $this;
     }
 
-    public function getMail(): ?string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setMail(string $mail): self
+    public function setEmail(string $email): self
     {
-        $this->email = $mail;
+        $this->email = $email;
 
         return $this;
     }
@@ -150,6 +157,13 @@ class Personne implements UserInterface
     public function setNumeroTel(string $numeroTel): self
     {
         $this->numeroTel = $numeroTel;
+
+        return $this;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
 
         return $this;
     }
@@ -198,6 +212,18 @@ class Personne implements UserInterface
     public function setAge(int $age): self
     {
         $this->age = $age;
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }
