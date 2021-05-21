@@ -68,6 +68,11 @@ class Lot
      */
     private $produits;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $prixEnchere;
+
     public function __construct()
         {
             $this->idEnchere = new ArrayCollection();
@@ -128,4 +133,21 @@ class Lot
 
             return $this;
         }
+
+    public function __toString()
+    {
+        return (string)($this->getNom());
+    }
+
+    public function getPrixEnchere(): ?int
+    {
+        return $this->prixEnchere;
+    }
+
+    public function setPrixEnchere(?int $prixEnchere): self
+    {
+        $this->prixEnchere = $prixEnchere;
+
+        return $this;
+    }
 }

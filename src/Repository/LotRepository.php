@@ -47,4 +47,13 @@ class LotRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function LotEncheres($idEnchere)
+    {
+        return $this->getEntityManager()->createQuery(
+            'SELECT l 
+            FROM App\Entity\Lot l
+            WHERE (l.idEnchere = :idEnchere )'
+
+        )->setParameter('idEnchere', $idEnchere)->getResult();
+    }
 }

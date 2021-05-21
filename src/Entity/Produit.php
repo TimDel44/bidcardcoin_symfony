@@ -49,10 +49,6 @@ class Produit
      */
     private $style;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Produitcategorie::class, mappedBy="idProduit")
-     */
-    private $produitcategories;
 
     /**
      * @ORM\OneToMany(targetEntity=Ordreachat::class, mappedBy="idProduit")
@@ -80,11 +76,16 @@ class Produit
      */
     private $idVendeur;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Categorie::class, mappedBy="produits")
+     */
+    private $categories;
+
     public function __construct()
     {
-        $this->produitcategories = new ArrayCollection();
         $this->ordreachats = new ArrayCollection();
         $this->idPhoto = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -164,32 +165,7 @@ class Produit
         return $this;
     }
 
-    /**
-     * @return Collection|Produitcategorie[]
-     */
-    public function getProduitcategories(): Collection
-    {
-        return $this->produitcategories;
-    }
 
-    public function addProduitcategory(Produitcategorie $produitcategory): self
-    {
-        if (!$this->produitcategories->contains($produitcategory)) {
-            $this->produitcategories[] = $produitcategory;
-            $produitcategory->addIdProduit($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduitcategory(Produitcategorie $produitcategory): self
-    {
-        if ($this->produitcategories->removeElement($produitcategory)) {
-            $produitcategory->removeIdProduit($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Ordreachat[]
@@ -285,6 +261,38 @@ class Produit
         $this->idVendeur = $idVendeur;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Categorie[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Categorie $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+            $category->addProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Categorie $category): self
+    {
+        if ($this->categories->removeElement($category)) {
+            $category->removeProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return (string)($this->getNom());
     }
 
 

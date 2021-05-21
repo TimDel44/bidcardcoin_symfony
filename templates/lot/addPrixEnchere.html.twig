@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enchérir Lot{% endblock %}
+
+{% block body %}
+    <h1>Enchérir sur le lot</h1>
+
+{#
+    {{ include('lot/_form.html.twig', {'button_label': 'Encherir'}) }}
+#}
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('home') }}">retour aux enchères</a>
+{% endblock %}

@@ -18,7 +18,7 @@ class ProduitType extends AbstractType
             ->add('description')
             ->add('artiste')
             ->add('style')
-            ->add('produitcategories')
+            ->add('categories')
             ->add('idLot')
             ->add('idAcheteur')
             ->add('idVendeur')

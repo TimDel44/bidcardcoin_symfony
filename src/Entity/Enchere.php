@@ -125,6 +125,16 @@ class Enchere
      */
     private $ordreachats;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateDebut;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateFin;
+
 
         /**
          * @return Collection|admin[]
@@ -179,4 +189,33 @@ class Enchere
 
             return $this;
         }
+
+    public function __toString()
+    {
+        return (string)($this->getNom());
+    }
+
+    public function getDateDebut(): ?\DateTimeInterface
+    {
+        return $this->dateDebut;
+    }
+
+    public function setDateDebut(\DateTimeInterface $dateDebut): self
+    {
+        $this->dateDebut = $dateDebut;
+
+        return $this;
+    }
+
+    public function getDateFin(): ?\DateTimeInterface
+    {
+        return $this->dateFin;
+    }
+
+    public function setDateFin(\DateTimeInterface $dateFin): self
+    {
+        $this->dateFin = $dateFin;
+
+        return $this;
+    }
 }

@@ -47,4 +47,14 @@ class EnchereRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function EncheresEnCours()
+    {
+        return $this->getEntityManager()->createQuery(
+            'SELECT e 
+            FROM App\Entity\Enchere e
+            WHERE (e.dateDebut <= :date ) AND (e.dateFin >= :date )
+            ORDER BY e.dateDebut ASC'
+
+        )->setParameter('date', date('Y/m/d H:i:s'))->getResult();
+    }
 }
