@@ -52,7 +52,7 @@ class LotRepository extends ServiceEntityRepository
         return $this->getEntityManager()->createQuery(
             'SELECT l 
             FROM App\Entity\Lot l
-            WHERE (l.idEnchere = :idEnchere )'
+            WHERE (:idEnchere MEMBER OF l.idEnchere)'
 
         )->setParameter('idEnchere', $idEnchere)->getResult();
     }
