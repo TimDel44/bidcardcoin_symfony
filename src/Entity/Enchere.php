@@ -85,6 +85,7 @@ class Enchere
                 $this->idLieu = new ArrayCollection();
                 $this->idAdmin = new ArrayCollection();
                 $this->ordreachats = new ArrayCollection();
+                $this->idLot = new ArrayCollection();
 
 
             }
@@ -134,6 +135,11 @@ class Enchere
      * @ORM\Column(type="datetime")
      */
     private $dateFin;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Lot::class, inversedBy="encheres")
+     */
+    private $idLot;
 
 
         /**
@@ -215,6 +221,30 @@ class Enchere
     public function setDateFin(\DateTimeInterface $dateFin): self
     {
         $this->dateFin = $dateFin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Lot[]
+     */
+    public function getIdLot(): Collection
+    {
+        return $this->idLot;
+    }
+
+    public function addIdLot(Lot $idLot): self
+    {
+        if (!$this->idLot->contains($idLot)) {
+            $this->idLot[] = $idLot;
+        }
+
+        return $this;
+    }
+
+    public function removeIdLot(Lot $idLot): self
+    {
+        $this->idLot->removeElement($idLot);
 
         return $this;
     }

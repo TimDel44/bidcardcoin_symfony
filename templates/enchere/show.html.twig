@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enchere{% endblock %}
+
+{% block body %}
+    <h1>Enchere</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ enchere.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ enchere.nom }}</td>
+            </tr>
+            <tr>
+                <th>Heure</th>
+                <td>{{ enchere.heure }}</td>
+            </tr>
+            <tr>
+                <th>DateVente</th>
+                <td>{{ enchere.dateVente }}</td>
+            </tr>
+            <tr>
+                <th>DateDebut</th>
+                <td>{{ enchere.dateDebut ? enchere.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateFin</th>
+                <td>{{ enchere.dateFin ? enchere.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('enchere_index') }}">back to list</a>
+
+    <a href="{{ path('enchere_edit', {'id': enchere.id}) }}">edit</a>
+
+    {{ include('enchere/_delete_form.html.twig') }}
+
+    <h1>Lot index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>PrixEnchere</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for lot in lots %}
+            <tr>
+                <td>{{ lot.id }}</td>
+                <td>{{ lot.nom }}</td>
+                <td>{{ lot.description }}</td>
+                <td>{{ lot.prixEnchere }}</td>
+                <td>
+                    <a href="{{ path('lot_show', {'id': lot.id}) }}">show</a>
+                    <a href="{{ path('lot_edit', {'id': lot.id}) }}">edit</a>
+                    <a href="{{ path('lot_encherir', {'id': lot.id}) }}">encherir</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('lot_new') }}">Create new</a>
+{% endblock %}

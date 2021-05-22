@@ -73,10 +73,16 @@ class Lot
      */
     private $prixEnchere;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Enchere::class, mappedBy="idLot")
+     */
+    private $encheres;
+
     public function __construct()
         {
             $this->idEnchere = new ArrayCollection();
             $this->produits = new ArrayCollection();
+            $this->encheres = new ArrayCollection();
         }
 
 
@@ -147,6 +153,33 @@ class Lot
     public function setPrixEnchere(?int $prixEnchere): self
     {
         $this->prixEnchere = $prixEnchere;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Enchere[]
+     */
+    public function getEncheres(): Collection
+    {
+        return $this->encheres;
+    }
+
+    public function addEnchere(Enchere $enchere): self
+    {
+        if (!$this->encheres->contains($enchere)) {
+            $this->encheres[] = $enchere;
+            $enchere->addIdLot($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEnchere(Enchere $enchere): self
+    {
+        if ($this->encheres->removeElement($enchere)) {
+            $enchere->removeIdLot($this);
+        }
 
         return $this;
     }
