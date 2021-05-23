@@ -15,7 +15,9 @@ class LotType extends AbstractType
             ->add('nom')
             ->add('description')
             ->add('prixEnchere')
-            ->add('idEnchere')
+/*            ->add('idEnchere')
+            ->add('encheres')*/
+            ->add('idEncherex')
         ;
     }
 

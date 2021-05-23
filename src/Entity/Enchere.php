@@ -86,6 +86,7 @@ class Enchere
                 $this->idAdmin = new ArrayCollection();
                 $this->ordreachats = new ArrayCollection();
                 $this->idLot = new ArrayCollection();
+                $this->lots = new ArrayCollection();
 
 
             }
@@ -140,6 +141,16 @@ class Enchere
      * @ORM\ManyToMany(targetEntity=Lot::class, inversedBy="encheres")
      */
     private $idLot;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Lot::class, inversedBy="idEnchere2")
+     */
+    private $lot;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Lot::class, mappedBy="idEncherex")
+     */
+    private $lots;
 
 
         /**
@@ -245,6 +256,48 @@ class Enchere
     public function removeIdLot(Lot $idLot): self
     {
         $this->idLot->removeElement($idLot);
+
+        return $this;
+    }
+
+    public function getLot(): ?Lot
+    {
+        return $this->lot;
+    }
+
+    public function setLot(?Lot $lot): self
+    {
+        $this->lot = $lot;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Lot[]
+     */
+    public function getLots(): Collection
+    {
+        return $this->lots;
+    }
+
+    public function addLot(Lot $lot): self
+    {
+        if (!$this->lots->contains($lot)) {
+            $this->lots[] = $lot;
+            $lot->setIdEncherex($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLot(Lot $lot): self
+    {
+        if ($this->lots->removeElement($lot)) {
+            // set the owning side to null (unless already changed)
+            if ($lot->getIdEncherex() === $this) {
+                $lot->setIdEncherex(null);
+            }
+        }
 
         return $this;
     }

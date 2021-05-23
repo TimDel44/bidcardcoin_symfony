@@ -80,6 +80,20 @@ class LotController extends AbstractController
     }
 
     /**
+     * @Route("/{id}", name="lot_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, Lot $lot): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$lot->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($lot);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('lot_index');
+    }
+
+    /**
      * @Route("/{id}/encherirlot", name="lot_encherir", methods={"GET","POST"})
      */
     public function encherirLot(Request $request, Lot $lot): Response
@@ -100,17 +114,4 @@ class LotController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="lot_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Lot $lot): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$lot->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($lot);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('lot_index');
-    }
 }
