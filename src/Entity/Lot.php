@@ -59,7 +59,7 @@ class Lot
     }
 
     /**
-     * @ORM\ManyToMany(targetEntity=Enchere::class, inversedBy="lot")
+     * @ORM\ManyToMany(targetEntity=Enchere::class, inversedBy="Lot")
      */
     private $idEnchere;
 
@@ -78,11 +78,19 @@ class Lot
      */
     private $encheres;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Enchere::class, inversedBy="lots")
+     */
+    private $idEncherex;
+
+
+
     public function __construct()
         {
             $this->idEnchere = new ArrayCollection();
             $this->produits = new ArrayCollection();
             $this->encheres = new ArrayCollection();
+            $this->idEnchere2 = new ArrayCollection();
         }
 
 
@@ -180,6 +188,18 @@ class Lot
         if ($this->encheres->removeElement($enchere)) {
             $enchere->removeIdLot($this);
         }
+
+        return $this;
+    }
+
+    public function getIdEncherex(): ?Enchere
+    {
+        return $this->idEncherex;
+    }
+
+    public function setIdEncherex(?Enchere $idEncherex): self
+    {
+        $this->idEncherex = $idEncherex;
 
         return $this;
     }

@@ -31,8 +31,8 @@
                 <td>{{ enchere.dateDebut ? enchere.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ enchere.dateFin ? enchere.dateFin|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('enchere_show', {'id': enchere.id}) }}">show</a>
-                    <a href="{{ path('enchere_lot', {'id': enchere.id}) }}">voir lots</a>
+                    <a href="{{ path('enchere_show', {'id': enchere.id}) }}">voir lots</a>
+{#                    <a href="{{ path('enchere_lot', {'id': enchere.id}) }}">voir lots</a>#}
                 </td>
             </tr>
         {% else %}

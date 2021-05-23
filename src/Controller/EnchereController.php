@@ -69,7 +69,7 @@ class EnchereController extends AbstractController
         return $this->render('enchere/show.html.twig', [
             'enchere' => $enchere,
             'lots' => $lotRepository->findBy(
-                ['idEnchere' => $enchere->getId()]
+                ['idEncherex' => $enchere->getId()]
             )
         ]);
     }

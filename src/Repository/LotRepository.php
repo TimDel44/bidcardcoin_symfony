@@ -47,7 +47,7 @@ class LotRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function LotEncheres($idEnchere)
+/*    public function LotEncheres($idEnchere)
     {
         return $this->getEntityManager()->createQuery(
             'SELECT l 
@@ -55,5 +55,5 @@ class LotRepository extends ServiceEntityRepository
             WHERE (:idEnchere MEMBER OF l.idEnchere)'
 
         )->setParameter('idEnchere', $idEnchere)->getResult();
-    }
+    }*/
 }
