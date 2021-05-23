@@ -12,6 +12,7 @@
                 <th>Nom</th>
                 <th>Description</th>
                 <th>PrixEnchere</th>
+                <th>Acheteur</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -22,6 +23,7 @@
                 <td>{{ lot.nom }}</td>
                 <td>{{ lot.description }}</td>
                 <td>{{ lot.prixEnchere }}</td>
+                <td>{{ lot.acheteur }}</td>
                 <td>
                     <a href="{{ path('lot_show', {'id': lot.id}) }}">show</a>
                     <a href="{{ path('lot_edit', {'id': lot.id}) }}">edit</a>

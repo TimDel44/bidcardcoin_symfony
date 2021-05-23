@@ -83,6 +83,11 @@ class Lot
      */
     private $idEncherex;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $acheteur;
+
 
 
     public function __construct()
@@ -200,6 +205,18 @@ class Lot
     public function setIdEncherex(?Enchere $idEncherex): self
     {
         $this->idEncherex = $idEncherex;
+
+        return $this;
+    }
+
+    public function getAcheteur(): ?string
+    {
+        return $this->acheteur;
+    }
+
+    public function setAcheteur(?string $acheteur): self
+    {
+        $this->acheteur = $acheteur;
 
         return $this;
     }

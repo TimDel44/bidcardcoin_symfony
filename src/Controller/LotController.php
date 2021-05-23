@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route("/lot")
@@ -98,9 +99,13 @@ class LotController extends AbstractController
      */
     public function encherirLot(Request $request, Lot $lot): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $best = $lot->getPrixEnchere();
         $form = $this->createForm(LotEncherirType::class, $lot);
+        $user = $this->getUser();
+        $form->get('acheteur')->setData($user->getUsername());
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid() && $form["prixEnchere"]->getData()>$best) {
             $this->getDoctrine()->getManager()->flush();
